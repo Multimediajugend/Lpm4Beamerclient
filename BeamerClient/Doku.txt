@@ -1,0 +1,38 @@
+﻿Login:
+- Beamername
+- URL zu Webseite auf der LPM4 mit installiertem Beamer-Modul läuft
+
+
+Serveranfragen:
+
+ - immer mit: "?tpl=empty&mod=" + BeamerClient.Properties.Settings.Default.lpm4_module_name + "&mode=client"
+ - "&cmd="
+	"reg" - registrieren
+		weitere Paramter
+			"&name=" - beamer-id
+			"&udpport=" - UDP Port zur Fernsteuerung - Standard ist 11001
+		Antwort:
+			0 - ok
+			sonst - fehler
+
+	"next" - nächstes 
+		Antwort:
+			json:
+				id			- id des elementes
+				type		- typ des elementes ("image", "movie", "http");
+				url			- url des elementes
+				duration	- int in Sekunden
+
+	"clientstatus" - zum senden von keepalives
+		weitere Parameter:
+			"&status=" - tatsächlicher Clientstatus
+				0 - pausiert
+				1 - playback
+		Antworten:
+			0 - Keep-Alive OK
+			1 - Client noch garnicht registriert
+			2 - Unbekannter Status / falsche Parameter
+
+TODO:
+- Authentifizierung einbauen?!?!
+- Start with Windows
